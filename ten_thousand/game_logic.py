@@ -21,31 +21,35 @@ class GameLogic:
         deletedKey=[]
         score = 0
         Pairscount = 0
-        ThreePairscount=0
+        ThreeOfKindcount=0
 
+        # check Straight 1- 6
         if sorted(dice) == [1, 2, 3, 4, 5, 6]:
             return 1500
                 
-        
+        # count Pairs and Three of a kind
         for value, num_dice in count.items():
             if num_dice == 2:
                 Pairscount += 1
                 deletedKey.append(value)
             elif num_dice == 3:
-                ThreePairscount+=1
+                ThreeOfKindcount+=1
                 deletedKey.append(value)
-                    
+
+        # check Three Pairs          
         if Pairscount==3:
             score+=1500
             for key in deletedKey:
                 del count[key]
-        elif Pairscount==1 and ThreePairscount==1:
+        # check Full House
+        elif Pairscount==1 and ThreeOfKindcount==1:
             score+=1500
             for key in deletedKey:
                 del count[key]
 
         
         for value, num_dice in count.items():
+            # check 6 of a kind
             if num_dice == 6:
                 if value == 1:
                     return 8000
@@ -59,25 +63,28 @@ class GameLogic:
                     return 4000
                 elif value == 6:
                     return 4800
+            # check 5 of a kind
             elif num_dice == 5:
                 if value == 1:
                     score += 4000
                 else:
                     score += value * 400
                 num_dice-=5
-
+            # check 4 of a kind
             elif num_dice == 4:
                 if value == 1:
                     score += 2000
                 else:
                     score += value * 200
                 num_dice-=4
+            # check 3 of a kind
             elif num_dice==3:
                 if value == 1:
                     score += 1000
                 else:
                     score += value * 100
                 num_dice -= 3
+            # check Single 1 and Single 5
             else:
                 if value == 5:
                     score += num_dice * 50
