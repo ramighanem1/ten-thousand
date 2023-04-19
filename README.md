@@ -12,4 +12,4 @@
     //after finishing 
     deactivate
 
-[Code Link](./ten_thousand/game_logic.py)
+[Code Link](./ten_thousand/game.py)
