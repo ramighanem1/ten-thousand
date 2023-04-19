@@ -2,7 +2,7 @@ import pytest
 from tests.flo import diff
 from ten_thousand.game import play
 
-pytestmark = [pytest.mark.version_2]
+# pytestmark = [pytest.mark.version_2]
 
 
 def test_quitter():

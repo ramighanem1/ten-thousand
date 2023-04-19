@@ -6,8 +6,8 @@
 
     source .venv/bin/activate
     pip install -r requirements.txt
-    pytest -m version_1
-    pytest -m version_2
+    pytest -k version_1
+    pytest -k version_2
 
     //after finishing 
     deactivate
