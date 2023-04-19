@@ -1,6 +1,6 @@
 # ten-thousand
-## LAB - Class 06
-## Author: Rami Ghanem,Jana Almomani
+## LAB - Class 07
+## Author: Rami Ghanem , Jana Almomani
 
 ## to run ten thousand game:
 
