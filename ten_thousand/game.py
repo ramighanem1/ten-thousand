@@ -30,6 +30,7 @@ def start_round_message(round_number):
     """
     print(f"Starting round {round_number}")
 
+
 def start_round(round_number):
     """
     return round score or -1 if user chose to quit
@@ -40,24 +41,38 @@ def start_round(round_number):
     # Initialize the number of remaining dice and round score
     remaining_dices = 6
     round_score = 0
+    num_of_roll = 0
 
     # Start the round
     while True:
         # Roll the dice
         roll = ROLLER_FUNC(remaining_dices)
+        #increas roll count by 1
+        num_of_roll+=1
 
         # Display the dice roll
         print(f"Rolling {remaining_dices} dice...")
-        print("*** {} ***".format(" ".join(str(i) for i in roll)))
 
-        # Prompt the user to select which dice to keep
-        user_input = input("Enter dice to keep, or (q)uit:\n> ")
-        if user_input == 'q':
-            return -1
-        
-        keep_dice = tuple(int(i) for i in user_input)
+        while True:
+            # Handel Zilch
+            print("*** {} ***".format(" ".join(str(i) for i in roll)))
+            if GameLogic.calculate_score(roll) ==0:
+                print('****************************************')
+                print('**        Zilch!!! Round over         **')
+                print('****************************************')
+                return 0
+            # Prompt the user to select which dice to keep
+            user_input = input("Enter dice to keep, or (q)uit:\n> ")
+            if user_input == 'q':
+                return -1
+            
+            keep_dice = tuple(int(i) for i in user_input if i !=' ')
 
-        #check if keep_dice in roll
+            #check if keep_dice in roll
+            if(GameLogic.validate_keepers(roll,keep_dice)):
+                break
+            else:
+                print('Cheater!!! Or possibly made a typo...')
 
         # Keep the selected dice and calculate the score
         roll = tuple(die for die in roll if die in keep_dice)
@@ -67,14 +82,22 @@ def start_round(round_number):
 
         remaining_dices -= len(roll)
 
-        # Display the round score 
-        print(f"You have {round_score} unbanked points and {remaining_dices} dice remaining")
+
+        # Display the round score
+        if (round_score == 1500):
+            print(f"You have {round_score} unbanked points and 6 dice remaining")
+        else:
+            print(f"You have {round_score} unbanked points and {remaining_dices} dice remaining")
         
         # prompt the user to roll again, bank points or quit
-        if remaining_dices == 0:
+        if remaining_dices == 0 and num_of_roll !=1:
             print("(b)ank your points or (q)uit:")
-        else:
+        elif remaining_dices>0:
+            print("(r)oll again, (b)ank your points or (q)uit:") 
+        elif remaining_dices == 0 and num_of_roll ==1:
             print("(r)oll again, (b)ank your points or (q)uit:")
+            remaining_dices+=6
+            num_of_roll=0
 
         # Get user input and validate it
         user_input = input("> ")
