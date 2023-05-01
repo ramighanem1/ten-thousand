@@ -106,3 +106,30 @@ class GameLogic:
             die = random.randint(1, 6)
             dice.append(die)
         return tuple(dice)
+    
+
+    @staticmethod
+    def validate_keepers(roll, keepers):
+        """
+        Check if a given set of dice can be kept from a roll
+        """
+        roll_counter = Counter(roll)
+        keeper_counter = Counter(keepers)
+        # Check if keepers is a subset of roll
+        if keeper_counter - roll_counter != Counter():
+            return False
+        # Check if any dice were kept more times than they appear in the roll
+        for die, count in keeper_counter.items():
+            if count > roll_counter[die]:
+                return False
+        return True
+    
+    @staticmethod
+    def get_scorers(test_input):
+        """
+        Returns a tuple of letters that are considered "scorers" in the input word, meaning they can be removed to form
+        words with different scores.
+        """
+        main_score = GameLogic.calculate_score(test_input)
+        scorers = [val for i, val in enumerate(test_input) if GameLogic.calculate_score(test_input[:i] + test_input[i+1:]) != main_score]
+        return tuple(scorers)
