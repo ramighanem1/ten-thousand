@@ -11,6 +11,8 @@
     pytest -k version_3
     pytest -k version_4
 
+    python bots.py
+
     //after finishing 
     deactivate
 
