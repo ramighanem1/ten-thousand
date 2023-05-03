@@ -9,6 +9,7 @@
     pytest -k version_1
     pytest -k version_2
     pytest -k version_3
+    pytest -k version_4
 
     //after finishing 
     deactivate

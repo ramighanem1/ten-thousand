@@ -1,10 +1,7 @@
-
 from ten_thousand.game_logic import GameLogic
 # from game_logic import GameLogic
 
-
 ROLLER_FUNC = GameLogic.roll_dice
-
 
 def welcome_game_message():
     """
@@ -62,7 +59,8 @@ def start_round(round_number):
                 print('****************************************')
                 return 0
             # Prompt the user to select which dice to keep
-            user_input = input("Enter dice to keep, or (q)uit:\n> ")
+            print("Enter dice to keep, or (q)uit:")
+            user_input = input('> ')
             if user_input == 'q':
                 return -1
             
@@ -85,7 +83,11 @@ def start_round(round_number):
 
         # Display the round score
         if (round_score == 1500):
-            print(f"You have {round_score} unbanked points and 6 dice remaining")
+            if remaining_dices==1:
+                print(f"You have {round_score} unbanked points and 5 dice remaining")
+            else:
+                print(f"You have {round_score} unbanked points and 6 dice remaining")
+
         else:
             print(f"You have {round_score} unbanked points and {remaining_dices} dice remaining")
         
@@ -109,7 +111,7 @@ def start_round(round_number):
             return round_score
     
 
-def start_game():
+def start_game(num_rounds):
     """
     start the game
     """
@@ -136,11 +138,14 @@ def start_game():
         # incras round number
         round_number+=1
 
+        if(round_number>num_rounds):
+            break
+
     end_game_message(total_score)
 
     
     
-def play(roller=GameLogic.roll_dice):
+def play(roller=GameLogic.roll_dice,num_rounds=20):
     """
     start Ten Thousand game
     Args:
@@ -161,10 +166,10 @@ def play(roller=GameLogic.roll_dice):
 
     #handel user input
     if user_input == "y":
-        start_game()
+        start_game(num_rounds)
     else:
         decline_game_message()
 
 
 if __name__ == '__main__':
-    play()
+    play(num_rounds=1)
