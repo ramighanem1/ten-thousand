@@ -1,5 +1,5 @@
 # ten-thousand
-## LAB - Class 08
+## LAB - Class 09
 ## Author: Rami Ghanem , Jana Almomani
 
 ## to run ten thousand game:
